@@ -18,18 +18,19 @@ const LessonsMap = () => {
 
   // Use useEffect to check if the user has completed a lesson and is returning from Google Meet
   useEffect(() => {
-    if (localStorage.getItem("attendedLesson") === "true") {
-      // Reset the flag and show pet message after returning
-      localStorage.removeItem("attendedLesson");
-      setShowPetMessage(true);
-      
-      // Navigate to the last completed lesson page or store
-      const lastLesson = localStorage.getItem("lastLesson");
-      if (lastLesson) {
-        navigate(`/lesson/${lastLesson}`); // Navigate to the last completed lesson
+    if (typeof window !== "undefined") {
+      // Access localStorage safely only on the client-side
+      if (localStorage.getItem("attendedLesson") === "true") {
+        localStorage.removeItem("attendedLesson");
+        setShowPetMessage(true);
+        const lastLesson = localStorage.getItem("lastLesson");
+        if (lastLesson) {
+          navigate(`/lesson/${lastLesson}`);
+        }
       }
     }
   }, [navigate]);
+  
 
   const handleLessonComplete = (lessonId) => {
     if (!completedLessons.includes(lessonId)) {
