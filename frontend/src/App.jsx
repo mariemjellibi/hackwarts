@@ -89,7 +89,7 @@ import 'animate.css';
 // export default App
 
 import {  Routes, Route } from "react-router-dom";
-import FirstPage from "./kid/FirstPage";
+import FirstPage from "./kid/Firstpage";
 import LessonsMap from "./components/LessonsMap";
 import PetSelection from './components/PetSelection ';
 import Teacher from './components/Teacher';
