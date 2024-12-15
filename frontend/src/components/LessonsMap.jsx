@@ -1,4 +1,5 @@
-import  { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import backgroundImage from "../assets/b.jpg"; // Your background image path
 import petImage from "../kid/Pet.png"; // Pet image
 
@@ -13,17 +14,32 @@ const lessons = [
 const LessonsMap = () => {
   const [completedLessons, setCompletedLessons] = useState([]);
   const [showPetMessage, setShowPetMessage] = useState(false);
+  const navigate = useNavigate(); // Initialize navigate
+
+  // Use useEffect to check if the user has completed a lesson and is returning from Google Meet
+  useEffect(() => {
+    if (localStorage.getItem("attendedLesson") === "true") {
+      // Reset the flag and show pet message after returning
+      localStorage.removeItem("attendedLesson");
+      setShowPetMessage(true);
+    }
+  }, []);
 
   const handleLessonComplete = (lessonId) => {
     if (!completedLessons.includes(lessonId)) {
       setCompletedLessons([...completedLessons, lessonId]);
-      setShowPetMessage(true);
+
+      // Save flag in localStorage when the lesson is completed
+      localStorage.setItem("attendedLesson", "true");
+
+      // Redirect to Google Meet after the lesson is completed
+      window.location.href = "https://meet.google.com";
     }
   };
 
   const handleFeedPet = () => {
     setShowPetMessage(false);
-    alert("Thank you for feeding the pet!");
+    navigate("/store"); // Navigate to the /store route (Foodpage)
   };
 
   return (
