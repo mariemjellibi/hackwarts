@@ -22,15 +22,22 @@ const LessonsMap = () => {
       // Reset the flag and show pet message after returning
       localStorage.removeItem("attendedLesson");
       setShowPetMessage(true);
+      
+      // Navigate to the last completed lesson page or store
+      const lastLesson = localStorage.getItem("lastLesson");
+      if (lastLesson) {
+        navigate(`/lesson/${lastLesson}`); // Navigate to the last completed lesson
+      }
     }
-  }, []);
+  }, [navigate]);
 
   const handleLessonComplete = (lessonId) => {
     if (!completedLessons.includes(lessonId)) {
       setCompletedLessons([...completedLessons, lessonId]);
 
-      // Save flag in localStorage when the lesson is completed
+      // Save flags in localStorage when the lesson is completed
       localStorage.setItem("attendedLesson", "true");
+      localStorage.setItem("lastLesson", lessonId); // Save the last completed lesson
 
       // Redirect to Google Meet after the lesson is completed
       window.location.href = "https://meet.google.com";
