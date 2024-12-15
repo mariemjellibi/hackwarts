@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
-import backgroundImage from "../assets/b.jpg"; // Your background image path
+import backgroundImage from "../assets/b.jpg"; // Background image path
 import petImage from "../kid/Pet.png"; // Pet image
 
 const lessons = [
@@ -16,29 +16,23 @@ const LessonsMap = () => {
   const [showPetMessage, setShowPetMessage] = useState(false);
   const navigate = useNavigate(); // Initialize navigate
 
-  // Use useEffect to check if the user has completed a lesson and is returning from Google Meet
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      // Access localStorage safely only on the client-side
-      if (localStorage.getItem("attendedLesson") === "true") {
-        localStorage.removeItem("attendedLesson");
-        setShowPetMessage(true);
-        const lastLesson = localStorage.getItem("lastLesson");
-        if (lastLesson) {
-          navigate(`/lesson/${lastLesson}`);
-        }
-      }
+    const attendedLesson = localStorage.getItem("attendedLesson");
+    const lastLesson = localStorage.getItem("lastLesson");
+
+    if (attendedLesson === "true" && lastLesson) {
+      localStorage.removeItem("attendedLesson");
+      setShowPetMessage(true);
     }
-  }, [navigate]);
-  
+  }, []);
 
   const handleLessonComplete = (lessonId) => {
     if (!completedLessons.includes(lessonId)) {
-      setCompletedLessons([...completedLessons, lessonId]);
+      setCompletedLessons((prev) => [...prev, lessonId]);
 
       // Save flags in localStorage when the lesson is completed
       localStorage.setItem("attendedLesson", "true");
-      localStorage.setItem("lastLesson", lessonId); // Save the last completed lesson
+      localStorage.setItem("lastLesson", lessonId);
 
       // Redirect to Google Meet after the lesson is completed
       window.location.href = "https://meet.google.com";
@@ -118,20 +112,14 @@ const LessonsMap = () => {
 
 // Define positions for lessons
 const getPosition = (id) => {
-  switch (id) {
-    case 1:
-      return { top: "85%", left: "20%" };
-    case 2:
-      return { top: "75%", left: "40%" };
-    case 3:
-      return { top: "65%", left: "60%" };
-    case 4:
-      return { top: "50%", left: "30%" };
-    case 5:
-      return { top: "30%", left: "50%" };
-    default:
-      return {};
-  }
+  const positions = {
+    1: { top: "85%", left: "20%" },
+    2: { top: "75%", left: "40%" },
+    3: { top: "65%", left: "60%" },
+    4: { top: "50%", left: "30%" },
+    5: { top: "30%", left: "50%" },
+  };
+  return positions[id] || {};
 };
 
 export default LessonsMap;
