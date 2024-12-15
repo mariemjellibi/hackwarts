@@ -1,0 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Comic+Sans+MS&display=swap");
+
+.font-kids {
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+
+button {
+  transition: transform 0.2s ease-in-out;
+}
+
+button:active {
+  transform: scale(0.95);
+}

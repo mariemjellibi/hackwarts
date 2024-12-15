@@ -1,0 +1,48 @@
+/* Butterfly Animation Styles */
+.butterfly-3d {
+    position: absolute;
+    animation: flyAcrossPage 12s infinite ease-in-out;
+    opacity: 0.8;
+    transform-origin: center center;
+  }
+  
+  @keyframes flyAcrossPage {
+    0% {
+      transform: translateX(0) translateY(0) rotate(0deg);
+      opacity: 1;
+    }
+    25% {
+      transform: translateX(20vw) translateY(-30vh) rotate(15deg);
+    }
+    50% {
+      transform: translateX(40vw) translateY(-50vh) rotate(45deg);
+    }
+    75% {
+      transform: translateX(60vw) translateY(10vh) rotate(75deg);
+    }
+    100% {
+      transform: translateX(80vw) translateY(-10vh) rotate(120deg);
+    }
+  }
+  
+  /* Unique Animations for Each Butterfly */
+  .butterfly-1 {
+    animation: flyAcrossPage 12s infinite ease-in-out;
+  }
+  
+  .butterfly-2 {
+    animation: flyAcrossPage 15s infinite ease-in-out;
+  }
+  
+  .butterfly-3 {
+    animation: flyAcrossPage 18s infinite ease-in-out;
+  }
+  
+  .butterfly-4 {
+    animation: flyAcrossPage 20s infinite ease-in-out;
+  }
+  
+  .butterfly-5 {
+    animation: flyAcrossPage 22s infinite ease-in-out;
+  }
+  
